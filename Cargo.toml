@@ -1,0 +1,23 @@
+[package]
+name = "ea-appointment-reminders"
+version = "0.1.0"
+edition = "2021"
+authors = ["Celeo <mattboulanger@fastmail.com>"]
+publish = false
+description = "Appointment reminders for EasyAppointments"
+readme = "README.md"
+homepage = "https://github.com/celeo/ea-appointment-reminders"
+repository = "https://github.com/celeo/ea-appointment-reminders"
+documentation = "https://docs.rs/ea-appointment-reminders"
+license = "MIT OR Apache-2.0"
+exclude = [".github"]
+keywords = []
+categories = []
+
+[dependencies]
+anyhow = "1.0.81"
+clap = { version = "4.5.4", features = ["derive"] }
+log = "0.4.21"
+pretty_env_logger = "0.5.0"
+reqwest = { version = "0.12.2", features = ["json"] }
+tokio = { version = "1.37.0", features = ["full"] }
