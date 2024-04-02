@@ -156,8 +156,9 @@ async fn send_notification(
         debug!("Email notification sent");
     } else {
         warn!(
-            "Error response code from sending email to {}",
-            customer_info.email
+            "Error response code from sending email to {}, code {}",
+            customer_info.email,
+            result.code()
         );
     }
 
