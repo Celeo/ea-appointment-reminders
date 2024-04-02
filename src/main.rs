@@ -4,7 +4,7 @@ use clap::Parser;
 use itertools::Itertools;
 use lettre::{transport::smtp::authentication::Credentials, Message, SmtpTransport, Transport};
 use log::{debug, error, info, warn};
-use reqwest::Client;
+use reqwest::blocking::Client;
 use serde::Deserialize;
 use std::{
     env, fs,
@@ -96,47 +96,45 @@ struct CustomerInfo {
 }
 
 /// Get appointments from the API.
-async fn get_appointments(client: &Client, config: &Config) -> Result<Vec<Appointment>> {
+fn get_appointments(client: &Client, config: &Config) -> Result<Vec<Appointment>> {
     let resp = client
-        .get(&format!("{}appointments", config.api_root))
+        .get(format!("{}appointments", config.api_root))
         .header(
             reqwest::header::AUTHORIZATION,
             &format!("Bearer {}", config.api_key),
         )
-        .send()
-        .await?;
+        .send()?;
     if !resp.status().is_success() {
         return Err(anyhow!(
             "Got status {} from appointments API",
             resp.status().as_u16()
         ));
     }
-    let data = resp.json().await?;
+    let data = resp.json()?;
     Ok(data)
 }
 
 /// Get customers from the API.
-async fn get_customers(client: &Client, config: &Config) -> Result<Vec<CustomerInfo>> {
+fn get_customers(client: &Client, config: &Config) -> Result<Vec<CustomerInfo>> {
     let resp = client
-        .get(&format!("{}customers", config.api_root))
+        .get(format!("{}customers", config.api_root))
         .header(
             reqwest::header::AUTHORIZATION,
             &format!("Bearer {}", config.api_key),
         )
-        .send()
-        .await?;
+        .send()?;
     if !resp.status().is_success() {
         return Err(anyhow!(
             "Got status {} from appointments API",
             resp.status().as_u16()
         ));
     }
-    let data = resp.json().await?;
+    let data = resp.json()?;
     Ok(data)
 }
 
 /// Send an email to the customer to remind them of the upcoming appointment.
-async fn send_notification(
+fn send_notification(
     customer_info: &CustomerInfo,
     appointment_datetime: &str,
     config: &Config,
@@ -171,13 +169,13 @@ async fn send_notification(
 }
 
 /// Access to the Easy!Appointments instance, check for upcoming appointments, and potentially send reminders.
-async fn check(config: &Config, reminders_set: &mut Vec<u32>) -> Result<()> {
-    let client = reqwest::Client::builder()
+fn check(config: &Config, reminders_set: &mut Vec<u32>) -> Result<()> {
+    let client = reqwest::blocking::Client::builder()
         .user_agent("github.com/Celeo/ea-appointment-reminders")
         .build()
         .unwrap();
-    let appointments = get_appointments(&client, config).await?;
-    let customers = get_customers(&client, config).await?;
+    let appointments = get_appointments(&client, config)?;
+    let customers = get_customers(&client, config)?;
     let now = Utc::now();
 
     for appointment in appointments {
@@ -205,7 +203,7 @@ async fn check(config: &Config, reminders_set: &mut Vec<u32>) -> Result<()> {
                 continue;
             }
         };
-        send_notification(customer, &appointment.start, config).await?;
+        send_notification(customer, &appointment.start, config)?;
         info!(
             "Adding appointment #{} to the list of sent reminders",
             appointment.id
@@ -217,8 +215,7 @@ async fn check(config: &Config, reminders_set: &mut Vec<u32>) -> Result<()> {
 }
 
 /// Entrypoint.
-#[tokio::main]
-async fn main() {
+fn main() {
     let cli = Cli::parse();
     if cli.debug {
         env::set_var("RUST_LOG", "info,ea_appointment_reminders=debug");
@@ -265,7 +262,7 @@ async fn main() {
 
     loop {
         info!("Checking for reminders");
-        if let Err(e) = check(&config, &mut reminders_set).await {
+        if let Err(e) = check(&config, &mut reminders_set) {
             error!("Error processing potential reminders: {e}");
         };
         if let Err(e) = fs::write(
