@@ -1,8 +1,9 @@
 # ea-appointment-reminders
 
-![lang](https://img.shields.io/badge/lang-rust-orange)
-![licensing](https://img.shields.io/badge/license-MIT_or_Apache_2.0-blue)
 ![CI](https://github.com/Celeo/ea-appointment-reminders/actions/workflows/ci.yml/badge.svg)
+![lang](https://img.shields.io/badge/lang-rust-orange)
+[![Crates.io](https://img.shields.io/crates/v/ea_appointment_reminders.svg)](https://crates.io/crates/ea_appointment_reminders)
+![licensing](https://img.shields.io/badge/license-MIT_or_Apache_2.0-blue)
 
 Appointment reminders for [Easy!Appointments](https://easyappointments.org/).
 
@@ -18,8 +19,8 @@ This project is not official nor affiliated with Easy!Appointments.
 ### Steps
 
 ```sh
-git clone https://github.com/Celeo/ea-appointment-reminders
-cd ea-appointment-reminders
+git clone https://github.com/Celeo/ea_appointment_reminders
+cd ea_appointment_reminders
 cargo build
 ```
 
