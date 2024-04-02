@@ -1,9 +1,8 @@
 [package]
 name = "ea_appointment_reminders"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
 authors = ["Celeo <mattboulanger@fastmail.com>"]
-publish = false
 description = "Appointment reminders for EasyAppointments"
 readme = "README.md"
 homepage = "https://github.com/celeo/ea_appointment_reminders"
