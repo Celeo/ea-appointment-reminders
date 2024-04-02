@@ -29,6 +29,10 @@ struct Cli {
     /// Enable debug logging
     #[arg(short, long)]
     debug: bool,
+
+    /// Delay between checks in seconds
+    #[arg(short, long, default_value_t = 3_600)]
+    loop_delay: u64,
 }
 
 /// Easy!Appointments URL and API key, and SMTP server info.
@@ -46,6 +50,7 @@ struct Config {
 }
 
 impl Config {
+    /// Load the config from the specified path.
     fn load_config(path: &Path) -> Result<Self> {
         let text = std::fs::read_to_string(path)?;
         let config: Config = toml::from_str(&text)?;
@@ -269,7 +274,7 @@ async fn main() {
         ) {
             error!("Error writing to 'reminders.txt': {e}");
         }
-        debug!("Sleeping for 1 hour");
-        sleep(Duration::from_secs(60 * 60));
+        debug!("Sleeping for {} seconds", cli.loop_delay);
+        sleep(Duration::from_secs(cli.loop_delay));
     }
 }
