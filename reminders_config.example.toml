@@ -1,0 +1,11 @@
+api_root = ''
+api_key = ''
+
+email_from = ''
+email_reply_to = ''
+email_subject = ''
+email_body = ''
+
+smtp_host = ''
+smtp_user = ''
+smtp_pass = ''

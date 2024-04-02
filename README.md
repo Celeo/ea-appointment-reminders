@@ -27,7 +27,9 @@ cargo build
 
 From the project root, you can run `cargo run` to start the app.
 
-Additional CLI parameters can be found by running the app with the `--help` flag.
+You must supply a "reminders_config.toml" file with the app's configuration. A sample file can be found in this repo at [reminders_config.example.toml](./reminders_config.example.toml).
+
+Every 1 hour, the program will make an API call to your Easy!Appointments API, checking for appointments that are within 3 days from the current time. For each of those appointments, an email reminder will be sent to the appointment creator. A simple "reminders.txt" file is maintained so that no duplicate reminders are sent.
 
 ## License
 

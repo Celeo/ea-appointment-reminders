@@ -1,2 +1,3 @@
 /target
-.env
+reminders_config.toml
+reminders.txt
