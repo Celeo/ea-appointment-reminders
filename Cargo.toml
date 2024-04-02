@@ -1,14 +1,14 @@
 [package]
-name = "ea-appointment-reminders"
+name = "ea_appointment_reminders"
 version = "0.1.0"
 edition = "2021"
 authors = ["Celeo <mattboulanger@fastmail.com>"]
 publish = false
 description = "Appointment reminders for EasyAppointments"
 readme = "README.md"
-homepage = "https://github.com/celeo/ea-appointment-reminders"
-repository = "https://github.com/celeo/ea-appointment-reminders"
-documentation = "https://docs.rs/ea-appointment-reminders"
+homepage = "https://github.com/celeo/ea_appointment_reminders"
+repository = "https://github.com/celeo/ea_appointment_reminders"
+documentation = "https://docs.rs/ea_appointment_reminders"
 license = "MIT OR Apache-2.0"
 exclude = [".github"]
 keywords = []
