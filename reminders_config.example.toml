@@ -1,10 +1,18 @@
-api_root = ''
-api_key = ''
+api_root = 'https://example.com/index.php/api/v1/'
+api_key = 'abc123'
 
-email_from = ''
-email_reply_to = ''
-email_subject = ''
-email_body = ''
+email_from = 'no-reply@example.com'
+email_reply_to = 'abc-training@vatusa.net'
+email_subject = 'Upcoming ABC training session'
+email_body = '''
+Hi %FIRST_NAME% %LAST_NAME%,
+
+You have an upcoming training session at vZDV at %APPOINTMENT_DATETIME%.
+
+If you cannot attend this session, please notify training staff.
+
+Remember to prepare well for your sessions!
+'''
 
 smtp_host = ''
 smtp_user = ''
