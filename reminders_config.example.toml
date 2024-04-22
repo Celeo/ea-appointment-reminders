@@ -7,7 +7,7 @@ email_subject = 'Upcoming ABC training session'
 email_body = '''
 Hi %FIRST_NAME% %LAST_NAME%,
 
-You have an upcoming training session at vZDV at %APPOINTMENT_DATETIME%.
+You have an upcoming training session at vABC at %APPOINTMENT_DATETIME%.
 
 If you cannot attend this session, please notify training staff.
 
